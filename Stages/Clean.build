@@ -4,13 +4,12 @@
 
 		<delete dir="${artifacts.dir}" if="${directory::exists(artifacts.dir)}" />
 		<mkdir dir="${artifacts.dir}" />
+		<mkdir dir="${artifacts.dir}\NUnit" />
 
 		<delete>
 			<fileset basedir="${root.dir}\">
 				<include name="**\bin\Release\**\*" />
 				<include name="**\obj\Release\**\*" />
-				<include name="**\bin\Debug\**\*" />
-				<include name="**\obj\Debug\**\*" />
 			</fileset>
 		</delete>
 

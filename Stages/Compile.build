@@ -11,8 +11,13 @@
 				</if>
 
 				<property name="framework.version" value="${string::substring(int::to-string(dotnet.version), 0, 1)}.${string::substring(int::to-string(dotnet.version), 1, 1)}" />
-				<echo message="Version: ${framework.version}" />
 
+				<echo message="" />
+				<echo message="-------------------------------------------------------------------------" />
+				<echo message="" />
+				<echo message="Compiling Framework Version: ${framework.version}" />
+				<echo message="" />
+				
 				<!-- Clean -->
 				<delete>
 					<fileset basedir="${root.dir}\">
@@ -20,6 +25,12 @@
 						<include name="**\obj\Release\**\*" />
 					</fileset>
 				</delete>
+
+				<!-- Restore Packages -->
+				<exec basedir="${root.dir}\Build\Tools\NuGet" program="NuGet.exe" workingdir="${root.dir}">
+					<arg value="restore" />
+					<arg value="${root.dir}\${solution.file}" />
+				</exec>
 
 				<!-- Compile -->
 				<exec basedir="${root.dir}\Source" program="${msbuild.dir}\msbuild.exe">
@@ -30,9 +41,10 @@
 				</exec>
 
 				<!-- Run Unit Tests -->
-				<exec program="${root.dir}\Build\Tools\NUnit\nunit-console.exe">
+				<exec program="${root.dir}\Build\Tools\NUnit\nunit-console.exe" workingdir="${artifacts.dir}\NUnit">
 					<arg value="${root.dir}\${project.name}.Tests\bin\Release\${project.name}.Tests.dll" />
 					<arg value="/framework=net-${framework.version}" />
+					<arg value="/xml=${project.name}.tests.${framework.version}.xml" />
 				</exec>
 
 				<!-- Copy binaries to NuGet Package -->
