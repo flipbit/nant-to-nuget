@@ -6,13 +6,6 @@
 		<mkdir dir="${artifacts.dir}" />
 		<mkdir dir="${artifacts.dir}\NUnit" />
 
-		<delete>
-			<fileset basedir="${root.dir}\">
-				<include name="**\bin\Release\**\*" />
-				<include name="**\obj\Release\**\*" />
-			</fileset>
-		</delete>
-
 	</target>
 
 </project>

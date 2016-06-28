@@ -3,7 +3,7 @@
 
 		<!-- Copy source to NuGet Package -->
 		<copy todir="${artifacts.dir}\NuGet\src">
-			<fileset basedir="${root.dir}\${project.name}">
+			<fileset basedir="${root.dir}\${source.dir}">
 				<include name="**/*.cs" />
 				<include name="**/*.txt" />
 				<include name="**/*.config" />
@@ -14,12 +14,12 @@
 		</copy>
 
 		<!-- Copy NuSpec -->
-		<copy file="${root.dir}\${project.name}.nuspec" tofile="${artifacts.dir}\NuGet\${project.name}.nuspec" />
+		<copy file="${root.dir}\${nuspec.file}" tofile="${artifacts.dir}\NuGet\${nuspec.file}" />
 
 		<!-- Compile NuSpec -->
 		<exec basedir="${root.dir}\Build\Tools\NuGet" program="NuGet.exe" workingdir="${artifacts.dir}\NuGet">
 			<arg value="pack" />
-			<arg value="${artifacts.dir}\NuGet\${project.name}.nuspec" />
+			<arg value="${artifacts.dir}\NuGet\${nuspec.file}" />
 			<arg value="-Symbols" />
 		</exec>
 
