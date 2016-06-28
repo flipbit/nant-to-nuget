@@ -1,6 +1,6 @@
 <project name="clean-stage">
 
-	<target name="Clean">
+	<target name="Clean" depends="SetProperties">
 
 		<delete dir="${artifacts.dir}" if="${directory::exists(artifacts.dir)}" />
 		<mkdir dir="${artifacts.dir}" />

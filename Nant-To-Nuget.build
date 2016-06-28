@@ -1,0 +1,15 @@
+<project name="Nant-To-NuGet" basedir="." default="Compile">
+
+	<property name="build.dir" value="${project::get-base-directory()}\Build" readonly="true"/>
+
+	<include buildfile="${build.dir}\Properties\Global.build"/>
+
+	<include buildfile="${build.dir}\Stages\Clean.build"/>
+	<include buildfile="${build.dir}\Stages\Compile.build"/>
+	<include buildfile="${build.dir}\Stages\Package.build"/>
+
+	<target name="Build" depends="SetProperties">
+		<call target="Compile" cascade="false" />
+	</target>
+
+</project>

@@ -1,0 +1,47 @@
+<project name="Nant-To-NuGet" basedir="." default="Run">
+
+	<property name="root.dir" value="${project::get-base-directory()}" readonly="true"/>
+	<include buildfile="${root.dir}\Build\Nant-To-NuGet.build"/>
+
+	<target name="Run">
+
+		<!-- Project Properties -->
+		<property name="artifacts.dir" value="Artifacts" />
+		<property name="source.dir" value="Relative\Path\To\Source\Files" readonly="true" />
+		<property name="nuspec.file" value="Your.nuspec" readonly="true" />
+
+		<!-- 
+			Build Configurations 
+			Define your configurations below
+		-->
+		<call target="net45" />
+		<call target="iOS" />
+
+		<!-- Package NuGet -->
+		<call target="Package" />
+
+	</target>
+
+	<!-- Configuration: .NET 4.5 -->
+	<target name="net45">
+		
+		<property name="solution.file" value="Relative\Path\To\Your.sln" />
+		<property name="output.dir" value="Relative\Path\To\Output\Assemblies" />
+		<property name="framework.version" value="4.5" />				<!-- Can be 4.5, 4.0, 3.5, 2.0 -->
+		<property name="dotnet.version" value="net45" />				<!-- Can be net45, net40, net35, net20 -->
+
+		<call target="Build" />
+	</target>
+
+	<!-- Configuration: Xamarin iOS -->
+	<target name="iOS">
+		
+		<property name="solution.file" value="Relative\Path\To\Your.sln" />
+		<property name="output.dir" value="Relative\Path\To\Output\Assemblies" />
+		<property name="framework.version" value="4.5" />				<!-- Can be 4.5, 4.0, 3.5, 2.0 -->
+		<property name="dotnet.version" value="Xamarin.iOS10" />		<!-- Can be net45, net40, net35, net20 -->
+
+		<call target="Build" />
+	</target>
+
+</project>

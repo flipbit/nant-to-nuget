@@ -1,5 +1,5 @@
 <project name="compile-stage">
-	<target name="Compile">
+	<target name="Compile" depends="Clean">
 
 		<echo message="" />
 		<echo message="-------------------------------------------------------------------------" />
@@ -37,7 +37,7 @@
 		</exec>
 		-->
 		<!-- Copy binaries to NuGet Package -->
-		<copy todir="${artifacts.dir}\NuGet\lib\${dotnet.version}">
+		<copy todir="${root.dir}\${artifacts.dir}\NuGet\lib\${dotnet.version}">
 			<fileset basedir="${root.dir}\${output.dir}">
 				<include name="*.dll" />
 				<include name="*.config" />

@@ -1,8 +1,8 @@
 <project name="Package-stage">
-	<target name="Package">
+	<target name="Package" depends="SetProperties">
 
 		<!-- Copy source to NuGet Package -->
-		<copy todir="${artifacts.dir}\NuGet\src">
+		<copy todir="${root.dir}\${artifacts.dir}\NuGet\src">
 			<fileset basedir="${root.dir}\${source.dir}">
 				<include name="**/*.cs" />
 				<include name="**/*.txt" />
@@ -14,12 +14,12 @@
 		</copy>
 
 		<!-- Copy NuSpec -->
-		<copy file="${root.dir}\${nuspec.file}" tofile="${artifacts.dir}\NuGet\${nuspec.file}" />
+		<copy file="${root.dir}\${nuspec.file}" tofile="${root.dir}\${artifacts.dir}\NuGet\${nuspec.file}" />
 
 		<!-- Compile NuSpec -->
-		<exec basedir="${root.dir}\Build\Tools\NuGet" program="NuGet.exe" workingdir="${artifacts.dir}\NuGet">
+		<exec basedir="${root.dir}\Build\Tools\NuGet" program="NuGet.exe" workingdir="${root.dir}\${artifacts.dir}\NuGet">
 			<arg value="pack" />
-			<arg value="${artifacts.dir}\NuGet\${nuspec.file}" />
+			<arg value="${root.dir}\${artifacts.dir}\NuGet\${nuspec.file}" />
 			<arg value="-Symbols" />
 		</exec>
 
